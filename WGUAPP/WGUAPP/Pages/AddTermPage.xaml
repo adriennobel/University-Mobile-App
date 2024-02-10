@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="WGUAPP.AddTermPage"
+             x:Class="WGUAPP.Pages.AddTermPage"
              Title="Add Term">
 
     <Grid RowDefinitions="auto, auto, auto, auto, auto" 
-          RowSpacing="8"
-          Padding="8">
+          RowSpacing="16" Padding="16">
 
-        <Label Text="Add new term" FontSize="Large" />
-        <Entry x:Name="TermNameEntry" Placeholder="Term name" Grid.Row="1" />
-        <Grid ColumnDefinitions="80, auto"
-              ColumnSpacing="8"
-              Grid.Row="2">
-            <Label Text="Start date:" VerticalOptions="Center" />
-            <DatePicker x:Name="StartDatePicker" Grid.Column="1" />
+        <Entry x:Name="TermNameEntry" Placeholder="Term name" Grid.Row="1" FontSize="16" />
+        <Grid ColumnDefinitions="80, auto" ColumnSpacing="8" Grid.Row="2">
+            <Label Text="Start date:" FontSize="16" VerticalOptions="Center" />
+            <DatePicker x:Name="StartDatePicker" Grid.Column="1" FontSize="16" />
         </Grid>
-        <Grid ColumnDefinitions="80, auto"
-              ColumnSpacing="8"
-              Grid.Row="3">
-            <Label Text="End date:" VerticalOptions="Center" />
-            <DatePicker x:Name="EndDatePicker" Grid.Column="1" />
+        <Grid ColumnDefinitions="80, auto" ColumnSpacing="8" Grid.Row="3">
+            <Label Text="End date:" FontSize="16" VerticalOptions="Center" />
+            <DatePicker x:Name="EndDatePicker" Grid.Column="1" FontSize="16" />
         </Grid>
-        <Grid ColumnDefinitions="auto, auto"
-              ColumnSpacing="8"
-              Grid.Row="4">
-            <Button Text="Save" Clicked="SaveButton_Click" />
-            <Button Text="Cancel" Grid.Column="1" Clicked="CancelButton_Click" />
+        <Grid ColumnDefinitions="auto, auto" ColumnSpacing="16" Grid.Row="4">
+            <Button Text="Save" Clicked="SaveButton_Click" FontSize="16" />
+            <Button Text="Cancel" Grid.Column="1" Clicked="CancelButton_Click" FontSize="16" />
         </Grid>
     </Grid>
 </ContentPage>

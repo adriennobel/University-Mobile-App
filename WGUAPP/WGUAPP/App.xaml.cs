@@ -1,4 +1,6 @@
-﻿namespace WGUAPP
+﻿using WGUAPP.Pages;
+
+namespace WGUAPP
 {
     public partial class App : Application
     {

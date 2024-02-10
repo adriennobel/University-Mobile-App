@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WGUAPP.Pages.AddCoursePage"
+             Title="Add Course">
+
+    <ScrollView>
+        <Grid RowDefinitions="auto, auto, auto, auto, auto, auto, auto, auto, auto" 
+              RowSpacing="16" Padding="16">
+
+            <!--<Label Text="Add new course" FontSize="24" />-->
+
+            <Grid ColumnDefinitions="80, auto" Grid.Row="1">
+                <Label Text="Course:" VerticalOptions="Center" FontSize="16" />
+                <Entry x:Name="CourseNameEntry" Placeholder="Enter course name" Grid.Column="1" FontSize="16" />
+            </Grid>
+            <Grid ColumnDefinitions="80, auto" Grid.Row="2">
+                <Label Text="Start date:" VerticalOptions="Center" FontSize="16" />
+                <DatePicker x:Name="StartDatePicker" Grid.Column="1" FontSize="16" />
+            </Grid>
+            <Grid ColumnDefinitions="80, auto" Grid.Row="3">
+                <Label Text="End date:" VerticalOptions="Center" FontSize="16" />
+                <DatePicker x:Name="EndDatePicker" Grid.Column="1" FontSize="16" />
+            </Grid>
+            <Grid ColumnDefinitions="80, auto" Grid.Row="4">
+                <Label Text="Status:" VerticalOptions="Center" FontSize="16" />
+                <Picker x:Name="StatusPicker" Title="Select one" Grid.Column="1" FontSize="16" />
+            </Grid>
+
+            <Label Text="Course instructor info:" FontSize="16" Grid.Row="5" />
+            <Grid RowDefinitions="auto, auto, auto" RowSpacing="16" Padding="16,0,0,0" Grid.Row="6">
+                <Grid ColumnDefinitions="64, auto">
+                    <Label Text="Name:" VerticalOptions="Center" FontSize="16" />
+                    <Entry x:Name="InstructorNameEntry" Placeholder="Enter the instructor's name" Grid.Column="1" FontSize="16" />
+                </Grid>
+                <Grid ColumnDefinitions="64, auto" Grid.Row="1">
+                    <Label Text="Phone:" VerticalOptions="Center" FontSize="16" />
+                    <Entry x:Name="InstructorPhoneEntry" Placeholder="Enter the instructor's phone" Grid.Column="1" FontSize="16" />
+                </Grid>
+                <Grid ColumnDefinitions="64, auto" Grid.Row="2">
+                    <Label Text="Email:" VerticalOptions="Center" FontSize="16" />
+                    <Entry x:Name="InstructorEmailEntry" Placeholder="Enter the instructor's email" Grid.Column="1" FontSize="16" />
+                </Grid>
+            </Grid>
+
+            <Grid ColumnDefinitions="80, auto" Grid.Row="7">
+                <Label Text="Notes:" VerticalOptions="Center" FontSize="16" />
+                <Editor x:Name="NotesEditor" Placeholder="Type any notes you have..." AutoSize="TextChanges" Grid.Column="1" FontSize="16" />
+            </Grid>
+
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="16" Grid.Row="8">
+                <Button Text="Save" Clicked="SaveButton_Click" FontSize="16" />
+                <Button Text="Cancel" Grid.Column="1" Clicked="CancelButton_Click" FontSize="16" />
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>

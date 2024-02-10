@@ -1,6 +1,8 @@
-﻿using WGUAPP.Models;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
+using WGUAPP.Models;
 
-namespace WGUAPP
+namespace WGUAPP.Pages
 {
     public partial class MainPage : ContentPage
     {
@@ -10,11 +12,30 @@ namespace WGUAPP
 
             DegreePlan.AddTerm(new Term { Title = "Term 1"});
             DegreePlan.AddTerm(new Term { Title = "Term 2"});
-            DegreePlan.AddTerm(new Term { Title = "Spring term" });
+            DegreePlan.AddTerm(new Term
+            {
+                Id = 0,
+                Title = "Spring term",
+                Courses =
+                [
+                    new Course { Name = "English 101", Status = "Plan to take" },
+                    new Course { Name = "Psychology 101", Status = "Dropped" }
+                ]
+            });
+
             TermsListView.ItemsSource = DegreePlan.Terms;
         }
 
-        private void TermChevronBtn_Click(object sender, EventArgs e)
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // Update the ItemsSource of the TermsListView
+            TermsListView.ItemsSource = null;
+            TermsListView.ItemsSource = DegreePlan.Terms;
+        }
+
+        private void TermChevronButton_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
             VerticalStackLayout parent = (VerticalStackLayout)button.Parent.Parent;
@@ -25,9 +46,25 @@ namespace WGUAPP
             }
         }
 
-        private async void AddTermBtn_Click(object sender, EventArgs e)
+        private async void AddCourseButton_Click(Object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new AddTermPage());
+            Button button = (Button)sender;
+            Term term = (Term)button.CommandParameter;
+
+            await Navigation.PushAsync(new AddCoursePage(term));
+        }
+
+        private async void EditTermButton_Click(Object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            Term term = (Term)button.CommandParameter;
+
+            await Navigation.PushAsync(new EditTermPage(term));
+        }
+
+        private async void AddTermButton_Click(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AddTermPage());
         }
 
     }

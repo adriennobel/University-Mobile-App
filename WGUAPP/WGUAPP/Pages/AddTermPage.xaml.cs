@@ -1,6 +1,6 @@
 using WGUAPP.Models;
 
-namespace WGUAPP;
+namespace WGUAPP.Pages;
 
 public partial class AddTermPage : ContentPage
 {
@@ -25,7 +25,7 @@ public partial class AddTermPage : ContentPage
                 return;
             }
 
-            // Create a new term
+            // Create a new term object
             Term newTerm = new()
             {
                 Title = title.Trim(),
@@ -36,9 +36,9 @@ public partial class AddTermPage : ContentPage
             // Add the new term to the DegreePlan
             DegreePlan.AddTerm(newTerm);
 
-            // Display success message and pop the modal page
+            // Display success message and return to main page
             await DisplayAlert("Success", "New term added", "OK");
-            await Navigation.PopModalAsync();
+            await Navigation.PopAsync();
         }
 		catch (Exception ex)
 		{
@@ -48,6 +48,6 @@ public partial class AddTermPage : ContentPage
 	
     private async void CancelButton_Click(object sender, EventArgs e)
 	{
-		await Navigation.PopModalAsync();
+		await Navigation.PopAsync();
 	}
 }
