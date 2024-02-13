@@ -29,13 +29,13 @@
     <AppXManifest Include="C:\C971\WGUAPP\WGUAPP\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2024-02-10T02:12:45.652</Modified>
+      <Modified>2024-02-13T04:08:55.466</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\C971\WGUAPP\WGUAPP\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2024-02-10T02:12:45.324</Modified>
+      <Modified>2024-02-13T04:03:57.889</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\C971\WGUAPP\WGUAPP\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\WGUAPP.runtimeconfig.json">
       <PackagePath>WGUAPP.runtimeconfig.json</PackagePath>
@@ -43,11 +43,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\C971\WGUAPP\WGUAPP\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\WGUAPP.dll">
       <PackagePath>WGUAPP.dll</PackagePath>
-      <Modified>2024-02-10T02:12:43.214</Modified>
+      <Modified>2024-02-13T04:08:54.810</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\C971\WGUAPP\WGUAPP\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\apphost.exe">
       <PackagePath>WGUAPP.exe</PackagePath>
-      <Modified>2024-02-10T02:12:43.292</Modified>
+      <Modified>2024-02-13T04:08:54.826</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\C971\WGUAPP\WGUAPP\Resources\Raw\AboutAssets.txt">
       <PackagePath>AboutAssets.txt</PackagePath>
@@ -287,7 +287,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\C971\WGUAPP\WGUAPP\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\WGUAPP.deps.json">
       <PackagePath>WGUAPP.deps.json</PackagePath>
-      <Modified>2024-02-10T02:12:44.995</Modified>
+      <Modified>2024-02-13T02:57:57.464</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\adrie\.nuget\packages\microsoft.windows.sdk.net.ref\10.0.19041.31\lib\net6.0\Microsoft.Windows.SDK.NET.dll">
       <PackagePath>Microsoft.Windows.SDK.NET.dll</PackagePath>

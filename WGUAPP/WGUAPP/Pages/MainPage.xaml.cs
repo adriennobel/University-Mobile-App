@@ -10,28 +10,22 @@ namespace WGUAPP.Pages
         {
             InitializeComponent();
 
-            DegreePlan.AddTerm(new Term { Title = "Term 1"});
-            DegreePlan.AddTerm(new Term { Title = "Term 2"});
             DegreePlan.AddTerm(new Term
             {
-                Id = 0,
                 Title = "Spring term",
                 Courses =
                 [
-                    new Course { Name = "English 101", Status = "Plan to take" },
-                    new Course { Name = "Psychology 101", Status = "Dropped" }
+                    new Course
+                    {
+                        Name = "Psychology 101",
+                        Status = "Plan to take",
+                        InstructorName = "John Doe",
+                        InstructorPhone = "555-555-5555",
+                        InstructorEmail = "john.doe@email.com"
+                    }
                 ]
             });
 
-            TermsListView.ItemsSource = DegreePlan.Terms;
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            // Update the ItemsSource of the TermsListView
-            TermsListView.ItemsSource = null;
             TermsListView.ItemsSource = DegreePlan.Terms;
         }
 
@@ -44,6 +38,17 @@ namespace WGUAPP.Pages
             {
                 child.IsVisible = !child.IsVisible;
             }
+        }
+
+        private async void CourseGrid_Tapped(object sender, TappedEventArgs e)
+        {
+            Grid grid = (Grid)sender;
+            Course course = (Course)grid.BindingContext;
+
+            ListView listView = (ListView)grid.Parent.Parent;
+            Term term = (Term)listView.BindingContext;
+
+            await Navigation.PushAsync(new CourseDetailPage(course, term));
         }
 
         private async void AddCourseButton_Click(Object sender, EventArgs e)

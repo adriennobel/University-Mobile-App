@@ -5,7 +5,7 @@
              Title="Edit Term">
 
     <Grid RowDefinitions="auto, auto, auto, auto, auto" 
-      RowSpacing="16" Padding="16">
+          RowSpacing="16" Padding="16">
 
         <Entry x:Name="TermNameEntry" Placeholder="Term name" Grid.Row="1" FontSize="16" />
         <Grid ColumnDefinitions="80, auto" ColumnSpacing="8" Grid.Row="2">
@@ -18,8 +18,8 @@
         </Grid>
         <Grid ColumnDefinitions="auto, *, auto" ColumnSpacing="16" Grid.Row="4">
             <Button Text="Save" Clicked="SaveButton_Click" FontSize="16" />
-            <Button Text="Cancel" Clicked="CancelButton_Click" Grid.Column="1" HorizontalOptions="Start" FontSize="16" />
-            <Button Text="Delete" Clicked="DeleteButton_Click" BackgroundColor="Red" Grid.Column="2" />
+            <Button Text="Cancel" Clicked="CancelButton_Click" HorizontalOptions="Start" FontSize="16" Grid.Column="1" />
+            <Button Text="Delete" Clicked="DeleteButton_Click" FontSize="16" BackgroundColor="Red" TextColor="White" Grid.Column="2" />
         </Grid>
     </Grid>
 </ContentPage>

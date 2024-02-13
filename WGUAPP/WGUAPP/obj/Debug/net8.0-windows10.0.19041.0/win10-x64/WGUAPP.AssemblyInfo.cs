@@ -18,7 +18,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WGUAPP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+73203c60abae0a2b8bbbb5ea5ef2d2abfb07bc67")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+ce7a88415ea943c6594c83f16515c6abd370cd2e")]
 [assembly: System.Reflection.AssemblyProductAttribute("WGUAPP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WGUAPP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

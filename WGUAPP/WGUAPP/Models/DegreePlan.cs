@@ -10,7 +10,7 @@ namespace WGUAPP.Models
         public static void AddTerm(Term term)
         {
             lastId++;
-            term.Id = lastId;
+            //term.Id = lastId;
 
             Terms.Add(term);
         }

@@ -48,9 +48,9 @@ public partial class EditTermPage : ContentPage
             await DisplayAlert("Success", "Term updated sucessfully.", "OK");
             await Navigation.PopAsync();
         }
-        catch (Exception ex)
+        catch
         {
-            await DisplayAlert("Error", $"An error occured while adding this new term.\n\n{ex.Message}", "OK");
+            await DisplayAlert("Error", "An error occured while adding this new term.", "OK");
         }
     }
 
@@ -69,7 +69,7 @@ public partial class EditTermPage : ContentPage
             DegreePlan.RemoveTerm(term);
 
             // Display success message and return to main page
-            await DisplayAlert("Success", "Term Deleted", "OK");
+            await DisplayAlert("Success", "Term deleted.", "OK");
             await Navigation.PopAsync();
         }
     }

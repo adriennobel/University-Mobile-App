@@ -13,7 +13,14 @@
                             <Border StrokeShape="RoundRectangle 8" Margin="0,0,0,16">
                                 <VerticalStackLayout>
                                     <Grid ColumnDefinitions="*, auto" Padding="16">
-                                        <Label Text="{Binding Title}" FontSize="18" VerticalOptions="Center" />
+                                        <VerticalStackLayout>
+                                            <Label Text="{Binding Title}" FontSize="24" VerticalOptions="Center" />
+                                            <Grid ColumnDefinitions="auto, auto, auto">
+                                                <Label Text="{Binding StartDate, StringFormat='{0:MMM d, yyyy}'}" FontSize="14" />
+                                                <Label Text=" - " FontSize="14" Grid.Column="1" />
+                                                <Label Text="{Binding EndDate, StringFormat='{0:MMM d, yyyy}'}" FontSize="14" Grid.Column="2" />
+                                            </Grid>
+                                        </VerticalStackLayout>
                                         <Button Text="V" Grid.Column="1" Clicked="TermChevronButton_Click" />
                                     </Grid>
 
@@ -26,6 +33,10 @@
                                                     <DataTemplate>
                                                         <ViewCell>
                                                             <Grid ColumnDefinitions="*, auto" Padding="0,16,0,16">
+                                                                <Grid.GestureRecognizers>
+                                                                    <TapGestureRecognizer Tapped="CourseGrid_Tapped" />
+                                                                </Grid.GestureRecognizers>
+                                                                
                                                                 <Label Text="{Binding Name}" FontSize="16" VerticalOptions="Center" />
                                                                 <Label Text="{Binding Status}" FontSize="14" Grid.Column="1" VerticalOptions="Center" />
                                                             </Grid>
