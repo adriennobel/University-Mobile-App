@@ -78,6 +78,10 @@
               "target": "Package",
               "version": "[8.0.1, )",
               "autoReferenced": true
+            },
+            "Plugin.LocalNotification": {
+              "target": "Package",
+              "version": "[10.1.8, )"
             }
           },
           "imports": [
@@ -121,6 +125,10 @@
               "target": "Package",
               "version": "[8.0.1, )",
               "autoReferenced": true
+            },
+            "Plugin.LocalNotification": {
+              "target": "Package",
+              "version": "[10.1.8, )"
             }
           },
           "imports": [
@@ -164,6 +172,10 @@
               "target": "Package",
               "version": "[8.0.1, )",
               "autoReferenced": true
+            },
+            "Plugin.LocalNotification": {
+              "target": "Package",
+              "version": "[10.1.8, )"
             }
           },
           "imports": [
@@ -202,6 +214,10 @@
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
               "version": "[8.0.3, )"
+            },
+            "Plugin.LocalNotification": {
+              "target": "Package",
+              "version": "[10.1.8, )"
             }
           },
           "imports": [

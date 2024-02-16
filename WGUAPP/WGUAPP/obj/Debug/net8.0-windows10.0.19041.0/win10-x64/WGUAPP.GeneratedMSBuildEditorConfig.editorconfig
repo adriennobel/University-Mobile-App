@@ -36,11 +36,23 @@ build_metadata.AdditionalFiles.ManifestResourceName = WGUAPP.Pages.AddTermPage.x
 build_metadata.AdditionalFiles.TargetPath = Pages\AddTermPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Pages\AddTermPage.xaml
 
+[C:/C971/WGUAPP/WGUAPP/Pages/CourseAssessmentPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = WGUAPP.Pages.CourseAssessmentPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\CourseAssessmentPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\CourseAssessmentPage.xaml
+
 [C:/C971/WGUAPP/WGUAPP/Pages/CourseDetailPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = WGUAPP.Pages.CourseDetailPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Pages\CourseDetailPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Pages\CourseDetailPage.xaml
+
+[C:/C971/WGUAPP/WGUAPP/Pages/CourseNotesPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = WGUAPP.Pages.CourseNotesPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\CourseNotesPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\CourseNotesPage.xaml
 
 [C:/C971/WGUAPP/WGUAPP/Pages/EditCoursePage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml

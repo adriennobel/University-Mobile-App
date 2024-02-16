@@ -96,6 +96,10 @@ public partial class EditCoursePage : ContentPage
                 return;
             }
 
+            // Update registered notifications for start and end dates
+            NotificationService.UpdateRegisteredNotification(course.StartDateAlertID, name.Trim(), "Course started", startDate);
+            NotificationService.UpdateRegisteredNotification(course.EndDateAlertID, name.Trim(), "Course ended", endDate);
+
             // Update course instance with new values
             course.Name = name.Trim();
             course.StartDate = startDate;
@@ -111,7 +115,7 @@ public partial class EditCoursePage : ContentPage
         }
         catch
         {
-            await DisplayAlert("Error", $"An error occured while adding this new term.", "OK");
+            await DisplayAlert("Error", "An error occured while updating this course.", "OK");
         }
     }
 

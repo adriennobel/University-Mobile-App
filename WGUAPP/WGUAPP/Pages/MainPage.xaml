@@ -46,8 +46,8 @@
                                             </ListView>
 
                                             <Grid ColumnDefinitions="*, *" ColumnSpacing="16">
-                                                <Button Text="Add Course" Clicked="AddCourseButton_Click" CommandParameter="{Binding .}" />
-                                                <Button Text="Edit Term" Clicked="EditTermButton_Click" CommandParameter="{Binding .}" Grid.Column="1" />
+                                                <Button Text="Add Course" Clicked="AddCourseButton_Click" CommandParameter="{Binding .}" FontSize="16" />
+                                                <Button Text="Edit Term" Clicked="EditTermButton_Click" CommandParameter="{Binding .}" FontSize="16" Grid.Column="1" />
                                             </Grid>
                                         </VerticalStackLayout>
                                     </VerticalStackLayout>

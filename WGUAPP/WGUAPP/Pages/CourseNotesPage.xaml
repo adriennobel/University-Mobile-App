@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WGUAPP.Pages.CourseNotesPage"
+             Title="Course Notes">
+    
+    <ScrollView>
+        <Grid RowDefinitions="auto, auto" RowSpacing="16" Padding="16">
+            <Editor x:Name="CourseNotesEditor" Placeholder="Enter course notes here" MinimumHeightRequest="250" AutoSize="TextChanges" FontSize="16" />
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="16" Grid.Row="1">
+                <Button Text="Save" Clicked="SaveButton_Click" HorizontalOptions="End" FontSize="16" />
+                <Button Text="Cancel" Clicked="CancelButton_Click" Grid.Column="1" FontSize="16" />
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>

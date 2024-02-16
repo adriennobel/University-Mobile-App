@@ -80,6 +80,10 @@ public partial class AddCoursePage : ContentPage
                 return;
             }
 
+            // Register notifications for start and end dates
+            int startDateAlertID = NotificationService.RegisterNotification(name.Trim(), "Course started", startDate);
+            int endDateAlertID = NotificationService.RegisterNotification(name.Trim(), "Course ended", endDate);
+
             // Create a new course object
             Course course = new()
             {
@@ -90,9 +94,11 @@ public partial class AddCoursePage : ContentPage
                 InstructorName = instructorName.Trim(),
                 InstructorPhone = instructorPhone.Trim(),
                 InstructorEmail = instructorEmail.Trim().ToLowerInvariant(),
+                StartDateAlertID = startDateAlertID,
+                EndDateAlertID = endDateAlertID,
             };
 
-            //Add the course object to Term object
+            // Add the course object to Term object
             term.AddCourse(course);
 
             // Display success message and pop the modal page

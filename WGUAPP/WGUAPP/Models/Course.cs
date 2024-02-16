@@ -14,7 +14,20 @@ namespace WGUAPP.Models
         private string _instructorPhone = "";
         private string _instructorEmail = "";
         private string _notes = "";
-        private ObservableCollection<Assessment> _assessments = [];
+        private Assessment _performanceAssessment = new();
+        private Assessment _objectiveAssessment = new();
+
+        private bool _hasContentInNotes = false;
+        private string _editNotesButtonText = "Add";
+
+        private bool _hasPA = false;
+        private string _paButtonText = "Add";
+
+        private bool _hasOA = false;
+        private string _oaButtonText = "Add";
+
+        private int _startDateAlertID = -1;
+        private int _endDateAlertID = -1;
 
         // Define properties
         public string Name
@@ -121,13 +134,127 @@ namespace WGUAPP.Models
             }
         }
 
-        public ObservableCollection<Assessment> Assessments
+        public Assessment PerformanceAssessment
         {
-            get { return _assessments; }
+            get { return _performanceAssessment; }
             set
             {
-                _assessments = value;
-                OnPropertyChanged(nameof(Assessments));
+                _performanceAssessment = value;
+                OnPropertyChanged(nameof(PerformanceAssessment));
+            }
+        }
+
+        public Assessment ObjectiveAssessment
+        {
+            get { return _objectiveAssessment; }
+            set
+            {
+                _objectiveAssessment = value;
+                OnPropertyChanged(nameof(ObjectiveAssessment));
+            }
+        }
+
+        public bool HasContentInNotes
+        {
+            get { return _hasContentInNotes; }
+            set
+            {
+                if (_hasContentInNotes != value)
+                {
+                    _hasContentInNotes = value;
+                    OnPropertyChanged(nameof(HasContentInNotes));
+                }
+            }
+        }
+
+        public string EditNotesButtonText
+        {
+            get { return _editNotesButtonText; }
+            set
+            {
+                if (_editNotesButtonText != value)
+                {
+                    _editNotesButtonText = value;
+                    OnPropertyChanged(nameof(EditNotesButtonText));
+                }
+            }
+        }
+
+        public bool HasPA
+        {
+            get { return _hasPA; }
+            set
+            {
+                if (_hasPA != value)
+                {
+                    _hasPA = value;
+                    OnPropertyChanged(nameof(HasPA));
+                }
+            }
+        }
+
+        public string PAButtonText
+        {
+            get { return _paButtonText; }
+            set
+            {
+                if (_paButtonText != value)
+                {
+                    _paButtonText = value;
+                    OnPropertyChanged(nameof(PAButtonText));
+                }
+            }
+        }
+
+        public bool HasOA
+        {
+            get { return _hasOA; }
+            set
+            {
+                if (_hasOA != value)
+                {
+                    _hasOA = value;
+                    OnPropertyChanged(nameof(HasOA));
+                }
+            }
+        }
+
+        public string OAButtonText
+        {
+            get { return _oaButtonText; }
+            set
+            {
+                if (_oaButtonText != value)
+                {
+                    _oaButtonText = value;
+                    OnPropertyChanged(nameof(OAButtonText));
+                }
+            }
+        }
+
+        public int StartDateAlertID
+        {
+            get { return _startDateAlertID; }
+            set
+            {
+                if (_startDateAlertID != value)
+                {
+                    _startDateAlertID = value;
+                    OnPropertyChanged(nameof(StartDateAlertID));
+                }
+            }
+        }
+
+        public int EndDateAlertID
+        {
+            get { return _endDateAlertID; }
+            set
+            {
+                if (_endDateAlertID != value)
+                {
+                    _endDateAlertID = value;
+                    OnPropertyChanged(nameof(EndDateAlertID));
+                }
             }
         }
 
