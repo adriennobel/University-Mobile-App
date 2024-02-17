@@ -9,6 +9,9 @@ namespace WGUAPP.Models
         private DateTime _startDate = DateTime.Now;
         private DateTime _endDate = DateTime.Now;
 
+        private int _startDateAlertID = -1;
+        private int _endDateAlertID = -1;
+
         public string Name
         {
             get => _name;
@@ -44,6 +47,32 @@ namespace WGUAPP.Models
                 {
                     _endDate = value;
                     OnPropertyChanged(nameof(EndDate));
+                }
+            }
+        }
+
+        public int StartDateAlertID
+        {
+            get { return _startDateAlertID; }
+            set
+            {
+                if (_startDateAlertID != value)
+                {
+                    _startDateAlertID = value;
+                    OnPropertyChanged(nameof(StartDateAlertID));
+                }
+            }
+        }
+
+        public int EndDateAlertID
+        {
+            get { return _endDateAlertID; }
+            set
+            {
+                if (_endDateAlertID != value)
+                {
+                    _endDateAlertID = value;
+                    OnPropertyChanged(nameof(EndDateAlertID));
                 }
             }
         }

@@ -77,6 +77,9 @@ public partial class CourseDetailPage : ContentPage
 
         if (answer)
         {
+            NotificationService.ClearAndCancelNotification(course.StartDateAlertID);
+            NotificationService.ClearAndCancelNotification(course.EndDateAlertID);
+
             // Delete coresponding course
             term.RemoveCourse(course);
 

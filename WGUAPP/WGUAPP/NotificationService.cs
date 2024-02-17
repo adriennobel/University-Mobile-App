@@ -32,7 +32,7 @@ namespace WGUAPP
         {
             // Cancel and clear old notification request
             LocalNotificationCenter.Current.Cancel(notificationID);
-            LocalNotificationCenter.Current.Clear([notificationID]);
+            LocalNotificationCenter.Current.Clear(notificationID);
 
             // Create a new notification request
             var request = new NotificationRequest
@@ -48,6 +48,13 @@ namespace WGUAPP
             };
 
             LocalNotificationCenter.Current.Show(request);
+        }
+
+        public static void ClearAndCancelNotification(int notificationID)
+        {
+            // Cancel and clear old notification request
+            LocalNotificationCenter.Current.Cancel(notificationID);
+            LocalNotificationCenter.Current.Clear(notificationID);
         }
     }
 }
