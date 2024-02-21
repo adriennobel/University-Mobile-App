@@ -1,0 +1,9 @@
+D1. 
+
+I modified the course details wireframe to have a seperate edit button for each assessment.
+The reason is to simplify the flow at the level of the code behind.
+Each button handles each assessment (performance and objective)
+
+D2.
+
+The wireframes aligns with the final product.
