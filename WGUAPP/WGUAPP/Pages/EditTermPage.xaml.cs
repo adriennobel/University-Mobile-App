@@ -39,10 +39,16 @@ public partial class EditTermPage : ContentPage
                 return;
             }
 
+            // Create a new term object
+            Term newTerm = new()
+            {
+                Title = title.Trim(),
+                StartDate = startDate,
+                EndDate = endDate
+            };
+
             // Update term instance with new values
-            term.Title = title.Trim();
-            term.StartDate = startDate;
-            term.EndDate = endDate;
+            await DatabaseService.UpdateTerm(term.Id, newTerm);
 
             // Display success message and return to main page
             await DisplayAlert("Success", "Term updated sucessfully.", "OK");
@@ -66,7 +72,7 @@ public partial class EditTermPage : ContentPage
         if (answer)
         {
             // Delete coresponding term
-            DegreePlan.RemoveTerm(term);
+            await DatabaseService.RemoveTerm(term.Id);
 
             // Display success message and return to main page
             await DisplayAlert("Success", "Term deleted.", "OK");

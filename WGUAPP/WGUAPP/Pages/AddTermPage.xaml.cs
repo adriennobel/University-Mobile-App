@@ -34,7 +34,7 @@ public partial class AddTermPage : ContentPage
             };
 
             // Add the new term to the DegreePlan
-            DegreePlan.AddTerm(newTerm);
+            await DatabaseService.AddTerm(newTerm);
 
             // Display success message and return to main page
             await DisplayAlert("Success", "New term added", "OK");

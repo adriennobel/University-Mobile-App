@@ -87,6 +87,7 @@ public partial class AddCoursePage : ContentPage
             // Create a new course object
             Course course = new()
             {
+                TermId = term.Id,
                 Name = name.Trim(),
                 StartDate = startDate,
                 EndDate = endDate,
@@ -98,16 +99,16 @@ public partial class AddCoursePage : ContentPage
                 EndDateAlertID = endDateAlertID,
             };
 
-            // Add the course object to Term object
-            term.AddCourse(course);
+            // Add the new course object to db
+            await DatabaseService.AddCourse(course);
 
             // Display success message and pop the modal page
             await DisplayAlert("Success", "New course added", "OK");
             await Navigation.PopAsync();
         }
-        catch (Exception ex)
+        catch
         {
-            await DisplayAlert("Error", $"An error occured while adding this new term.\n\n{ex.Message}", "OK");
+            await DisplayAlert("Error", "An error occured while adding this new term.", "OK");
         }
     }
 

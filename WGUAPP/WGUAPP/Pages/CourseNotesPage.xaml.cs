@@ -37,9 +37,7 @@ public partial class CourseNotesPage : ContentPage
                 if (answer)
                 {
                     // Update course instance with new values
-                    course.Notes = "";
-                    course.HasContentInNotes = false;
-                    course.EditNotesButtonText = "Add";
+                    await DatabaseService.UpdateCourseNotes(course.Id, "");
                 }
                 else
                 {
@@ -49,9 +47,7 @@ public partial class CourseNotesPage : ContentPage
             else
             {
                 // Update course instance with new values
-                course.Notes = courseNotes;
-                course.HasContentInNotes = true;
-                course.EditNotesButtonText = "Edit";
+                await DatabaseService.UpdateCourseNotes(course.Id, courseNotes);
             }
 
             // Display success message and pop the modal page

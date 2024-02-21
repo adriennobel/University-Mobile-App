@@ -100,14 +100,20 @@ public partial class EditCoursePage : ContentPage
             NotificationService.UpdateRegisteredNotification(course.StartDateAlertID, name.Trim(), "Course started", startDate);
             NotificationService.UpdateRegisteredNotification(course.EndDateAlertID, name.Trim(), "Course ended", endDate);
 
-            // Update course instance with new values
-            course.Name = name.Trim();
-            course.StartDate = startDate;
-            course.EndDate = endDate;
-            course.Status = status;
-            course.InstructorName = instructorName.Trim();
-            course.InstructorPhone = instructorPhone;
-            course.InstructorEmail = instructorEmail.Trim();
+            // Create a new course object 
+            Course newCourse = new()
+            {
+                Name = name.Trim(),
+                StartDate = startDate,
+                EndDate = endDate,
+                Status = status,
+                InstructorName = instructorName.Trim(),
+                InstructorPhone = instructorPhone,
+                InstructorEmail = instructorEmail.Trim()
+            };
+            
+            // call update course service
+            await DatabaseService.UpdateCourse(course.Id, newCourse);
 
             // Display success message and pop the modal page
             await DisplayAlert("Success", "Course updated sucessfully", "OK");

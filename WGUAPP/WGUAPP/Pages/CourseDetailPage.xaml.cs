@@ -1,5 +1,3 @@
-using System;
-using Microsoft.Maui.Controls;
 using Plugin.LocalNotification;
 using WGUAPP.Models;
 
@@ -7,39 +5,52 @@ namespace WGUAPP.Pages;
 
 public partial class CourseDetailPage : ContentPage
 {
-    private readonly Course course = new();
-    private readonly Term term = new();
-	public CourseDetailPage(Course course, Term term)
+    private Course course = new();
+    private Assessment PA = new();
+    private Assessment OA = new();
+	public CourseDetailPage(Course course)
 	{
 		InitializeComponent();
 
 		this.course = course;
-        this.term = term;
 
-		BindingContext = course;
-        SetBindings();
+        SetValues();
     }
 
-    private void SetBindings()
+    protected override async void OnAppearing()
     {
-        CourseNameLabel.SetBinding(Label.TextProperty, "Name");
-        StartDateLabel.SetBinding(Label.TextProperty, new Binding("StartDate", stringFormat: "{0:MMM d, yyyy}"));
-        EndDateLabel.SetBinding(Label.TextProperty, new Binding("EndDate", stringFormat: "{0:MMM d, yyyy}"));
-        StatusLabel.SetBinding(Label.TextProperty, "Status");
+        base.OnAppearing();
 
-        EditCourseNotesButton.SetBinding(Button.TextProperty, "EditNotesButtonText");
-        CourseNotesLayout.SetBinding(IsVisibleProperty, "HasContentInNotes");
-        CourseNotesLabel.SetBinding(Label.TextProperty, "Notes");
+        course = await DatabaseService.RefreshCourse(course.Id);
+        PA = await DatabaseService.GetAssessment(course.Id, "Performance");
+        OA = await DatabaseService.GetAssessment(course.Id, "Objective");
+        SetValues();
+    }
 
-        PAButton.SetBinding(Button.TextProperty, "PAButtonText");
-        PAGrid.SetBinding(IsVisibleProperty, "HasPA");
+    private void SetValues()
+    {
+        CourseNameLabel.Text = course.Name;
+        StartDateLabel.Text = course.StartDate.ToString("MMM d, yyyy");
+        EndDateLabel.Text = course.EndDate.ToString("MMM d, yyyy");
+        StatusLabel.Text = course.Status;
 
-        OAButton.SetBinding(Button.TextProperty, "OAButtonText");
-        OAGrid.SetBinding(IsVisibleProperty, "HasOA");
+        EditCourseNotesButton.Text = string.IsNullOrEmpty(course.Notes) ? "Add" : "Edit";
+        CourseNotesLayout.IsVisible = !string.IsNullOrEmpty(course.Notes);
+        CourseNotesLabel.Text = course.Notes;
 
-        InstructorNameLabel.SetBinding(Label.TextProperty, "InstructorName");
-        InstructorEmailLabel.SetBinding(Label.TextProperty, "InstructorEmail");
-        InstructorPhoneLabel.SetBinding(Label.TextProperty, "InstructorPhone");
+        PAButton.Text = course.HasPA ? "Edit" : "Add";
+        PAGrid.IsVisible = course.HasPA;
+        PANameLabel.Text = PA.Name;
+        PADateLabel.Text = PA.EndDate.ToString("MMM d, yyyy");
+
+        OAButton.Text = course.HasOA ? "Edit" : "Add";
+        OAGrid.IsVisible = course.HasOA;
+        OANameLabel.Text = OA.Name;
+        OADateLabel.Text = OA.EndDate.ToString("MMM d, yyyy");
+
+        InstructorNameLabel.Text = course.InstructorName;
+        InstructorEmailLabel.Text = course.InstructorEmail;
+        InstructorPhoneLabel.Text = course.InstructorPhone;
     }
 
     private async void EditCourseNotesButton_Click(object sender, EventArgs e)
@@ -81,7 +92,7 @@ public partial class CourseDetailPage : ContentPage
             NotificationService.ClearAndCancelNotification(course.EndDateAlertID);
 
             // Delete coresponding course
-            term.RemoveCourse(course);
+            await DatabaseService.RemoveCourse(course.Id);
 
             // Display success message and return to main page
             await DisplayAlert("Success", "Course deleted.", "OK");

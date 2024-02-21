@@ -4,34 +4,29 @@ namespace WGUAPP.Pages;
 
 public partial class CourseAssessmentPage : ContentPage
 {
-    private readonly Course course = new();
+    private Assessment assessment = new();
     private readonly string assessmentType = "";
+    private readonly Course course;
+
     public CourseAssessmentPage(Course course, string assessmentType)
 	{
 		InitializeComponent();
 
-        this.course = course;
         this.assessmentType = assessmentType;
+        this.course = course;
 
         Title = assessmentType + Title;
-        BindingContext = course;
+    }
 
-        if (assessmentType == "Performance")
-        {
-            NameEntry.Text = course.PerformanceAssessment.Name;
-            StartDatePicker.Date = course.PerformanceAssessment.StartDate;
-            EndDatePicker.Date = course.PerformanceAssessment.EndDate;
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        
+        assessment = await DatabaseService.GetAssessment(course.Id, assessmentType);
 
-            DeleteButton.SetBinding(IsVisibleProperty, "HasPA");
-        }
-        else if (assessmentType == "Objective")
-        {
-            NameEntry.Text = course.ObjectiveAssessment.Name;
-            StartDatePicker.Date = course.ObjectiveAssessment.StartDate;
-            EndDatePicker.Date = course.ObjectiveAssessment.EndDate;
-
-            DeleteButton.SetBinding(IsVisibleProperty, "HasOA");
-        }
+        NameEntry.Text = assessment.Name;
+        StartDatePicker.Date = assessment.StartDate;
+        EndDatePicker.Date = assessment.EndDate;
     }
 
     private async void SaveButton_Click(object sender, EventArgs e)
@@ -51,67 +46,49 @@ public partial class CourseAssessmentPage : ContentPage
             }
 
             // Check for any change
-            if (assessmentType == "Performance")
+            if (name.Trim() == assessment.Name && startDate == assessment.StartDate && endDate == assessment.EndDate)
             {
-                if (name.Trim() == course.PerformanceAssessment.Name && startDate == course.PerformanceAssessment.StartDate && endDate == course.PerformanceAssessment.EndDate)
-                {
-                    await DisplayAlert("Alert", "No change detected.", "OK");
-                    return;
-                }
-
-                // Register notifications for start and end dates
-                int startDateAlertID;
-                int endDateAlertID;
-                if (course.PerformanceAssessment.StartDateAlertID == -1 && course.PerformanceAssessment.EndDateAlertID == -1)
-                {
-                    startDateAlertID = NotificationService.RegisterNotification(course.Name, "Performance Assessment started", startDate);
-                    endDateAlertID = NotificationService.RegisterNotification(course.Name, "Performance Assessment ended", endDate);
-                    course.PerformanceAssessment.StartDateAlertID = startDateAlertID;
-                    course.PerformanceAssessment.EndDateAlertID = endDateAlertID;
-                }
-                else
-                {
-                    NotificationService.UpdateRegisteredNotification(course.PerformanceAssessment.StartDateAlertID, course.Name, "Performance Assessment started", startDate);
-                    NotificationService.UpdateRegisteredNotification(course.PerformanceAssessment.StartDateAlertID, course.Name, "Performance Assessment ended", endDate);
-                }
-
-                // Update course instance with new values
-                course.PerformanceAssessment.Name = name;
-                course.PerformanceAssessment.StartDate = startDate;
-                course.PerformanceAssessment.EndDate = endDate;
-                course.HasPA = true;
-                course.PAButtonText = "Edit";
+                await DisplayAlert("Alert", "No change detected.", "OK");
+                return;
             }
-            else if (assessmentType == "Objective")
+
+            // Register or update notifications for start and end dates
+            if (assessment.Name == "")
             {
-                if (name.Trim() == course.ObjectiveAssessment.Name && startDate == course.ObjectiveAssessment.StartDate && endDate == course.ObjectiveAssessment.EndDate)
-                {
-                    await DisplayAlert("Alert", "No change detected.", "OK");
-                    return;
-                }
+                int startDateAlertID = NotificationService.RegisterNotification(name, $"{assessmentType} Assessment started", startDate);
+                int endDateAlertID = NotificationService.RegisterNotification(name, $"{assessmentType} Assessment ended", endDate);
 
-                // Register notifications for start and end dates
-                int startDateAlertID;
-                int endDateAlertID;
-                if (course.ObjectiveAssessment.StartDateAlertID == -1 && course.ObjectiveAssessment.EndDateAlertID == -1)
+                // Create assessment object
+                Assessment newAssessment = new()
                 {
-                    startDateAlertID = NotificationService.RegisterNotification(course.Name, "Objective Assessment started", startDate);
-                    endDateAlertID = NotificationService.RegisterNotification(course.Name, "Objective Assessment ended", endDate);
-                    course.ObjectiveAssessment.StartDateAlertID = startDateAlertID;
-                    course.ObjectiveAssessment.EndDateAlertID = endDateAlertID;
-                }
-                else
-                {
-                    NotificationService.UpdateRegisteredNotification(course.ObjectiveAssessment.StartDateAlertID, course.Name, "Objective Assessment started", startDate);
-                    NotificationService.UpdateRegisteredNotification(course.ObjectiveAssessment.StartDateAlertID, course.Name, "Objective Assessment ended", endDate);
-                }
+                    CourseId = course.Id,
+                    Name = name,
+                    Type = assessmentType,
+                    StartDate = startDate,
+                    EndDate = endDate,
+                    StartDateAlertID = startDateAlertID,
+                    EndDateAlertID = endDateAlertID,
+                };
 
-                // Update course instance with new values
-                course.ObjectiveAssessment.Name = name;
-                course.ObjectiveAssessment.StartDate = startDate;
-                course.ObjectiveAssessment.EndDate = endDate;
-                course.HasOA = true;
-                course.OAButtonText = "Edit";
+                await DatabaseService.AddAssessment(newAssessment);
+                await DatabaseService.UpdateCourseHasAssessment(course.Id, assessmentType == "Performance" || course.HasPA , assessmentType == "Objective" || course.HasOA);
+            }
+            else
+            {
+                NotificationService.UpdateRegisteredNotification(assessment.StartDateAlertID, name, $"{assessmentType} Assessment started", startDate);
+                NotificationService.UpdateRegisteredNotification(assessment.StartDateAlertID, name, $"{assessmentType} Assessment ended", endDate);
+
+                // Create assessment object
+                Assessment newAssessment = new()
+                {
+                    Name = name,
+                    StartDate = startDate,
+                    EndDate = endDate,
+                };
+
+                // Update assessment instance with new values
+                await DatabaseService.UpdateAssessment(assessment.Id, newAssessment);
+                await DatabaseService.UpdateCourseHasAssessment(course.Id, assessmentType == "Performance" || course.HasPA, assessmentType == "Objective" || course.HasOA);
             }
 
             // Display success message and pop the modal page
@@ -135,30 +112,9 @@ public partial class CourseAssessmentPage : ContentPage
 
         if (answer)
         {
-            if (assessmentType == "Performance")
-            {
-                NotificationService.ClearAndCancelNotification(course.PerformanceAssessment.StartDateAlertID);
-                NotificationService.ClearAndCancelNotification(course.PerformanceAssessment.EndDateAlertID);
-
-                // Update course instance with reset values
-                course.PerformanceAssessment.Name = "";
-                course.PerformanceAssessment.StartDate = DateTime.Now;
-                course.PerformanceAssessment.EndDate = DateTime.Now;
-                course.HasPA = false;
-                course.PAButtonText = "Add";
-            }
-            else if (assessmentType == "Objective")
-            {
-                NotificationService.ClearAndCancelNotification(course.ObjectiveAssessment.StartDateAlertID);
-                NotificationService.ClearAndCancelNotification(course.ObjectiveAssessment.EndDateAlertID);
-
-                // Update course instance with reset values
-                course.ObjectiveAssessment.Name = "";
-                course.ObjectiveAssessment.StartDate = DateTime.Now;
-                course.ObjectiveAssessment.EndDate = DateTime.Now;
-                course.HasOA = false;
-                course.OAButtonText = "Add";
-            }
+            // Delete assessment
+            await DatabaseService.RemoveAssessment(assessment.Id);
+            await DatabaseService.UpdateCourseHasAssessment(course.Id, assessmentType != "Performance" && course.HasPA, assessmentType != "Objective" && course.HasOA);
 
             // Display success message and return to main page
             await DisplayAlert("Success", "Assessment deleted.", "OK");

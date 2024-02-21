@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="WGUAPP.Pages.MainPage">
+             x:Class="WGUAPP.Pages.MainPage"
+             Title="WGU Degree Plan">
 
     <ScrollView>
         <VerticalStackLayout Padding="16">
@@ -21,14 +22,14 @@
                                                 <Label Text="{Binding EndDate, StringFormat='{0:MMM d, yyyy}'}" FontSize="14" Grid.Column="2" />
                                             </Grid>
                                         </VerticalStackLayout>
-                                        <Button Text="V" Grid.Column="1" Clicked="TermChevronButton_Click" />
+                                        <Button Text="V" Grid.Column="1" Clicked="TermChevronButton_Click" CommandParameter="{Binding .}" />
                                     </Grid>
 
                                     <VerticalStackLayout IsVisible="false">
                                         <BoxView HeightRequest="1" />
                                         <VerticalStackLayout Padding="16">
 
-                                            <ListView ItemsSource="{Binding Courses}" SelectionMode="None" HasUnevenRows="True" Margin="0,0,0,16">
+                                            <ListView SelectionMode="None" HasUnevenRows="True" Margin="0,0,0,16">
                                                 <ListView.ItemTemplate>
                                                     <DataTemplate>
                                                         <ViewCell>

@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
+﻿using SQLite;
 using WGUAPP.Models;
 
 namespace WGUAPP.Pages
@@ -9,34 +8,33 @@ namespace WGUAPP.Pages
         public MainPage()
         {
             InitializeComponent();
-
-            DegreePlan.AddTerm(new Term
-            {
-                Title = "Spring term",
-                Courses =
-                [
-                    new Course
-                    {
-                        Name = "Psychology 101",
-                        Status = "Plan to take",
-                        InstructorName = "John Doe",
-                        InstructorPhone = "555-555-5555",
-                        InstructorEmail = "john.doe@email.com"
-                    }
-                ]
-            });
-
-            TermsListView.ItemsSource = DegreePlan.Terms;
         }
 
-        private void TermChevronButton_Click(object sender, EventArgs e)
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            TermsListView.ItemsSource = await DatabaseService.GetTerms();
+        }
+
+        private async void TermChevronButton_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            VerticalStackLayout parent = (VerticalStackLayout)button.Parent.Parent;
+            Term term = (Term)button.CommandParameter;
+            VerticalStackLayout termLayout = (VerticalStackLayout)button.Parent.Parent;
 
-            if (parent.Children[1] is VerticalStackLayout child)
+            if (termLayout.Children[1] is VerticalStackLayout coursesLayout)
             {
-                child.IsVisible = !child.IsVisible;
+                coursesLayout.IsVisible = !coursesLayout.IsVisible;
+
+                // load courses when the courses layout is made visible
+                if (coursesLayout.IsVisible == true)
+                {
+                    VerticalStackLayout coursesLayout2 = (VerticalStackLayout)coursesLayout.Children[1];
+                    ListView coursesListView = (ListView)coursesLayout2.Children[0];
+
+                    coursesListView.ItemsSource = await DatabaseService.GetCourses(term.Id);
+                }
             }
         }
 
@@ -45,10 +43,7 @@ namespace WGUAPP.Pages
             Grid grid = (Grid)sender;
             Course course = (Course)grid.BindingContext;
 
-            ListView listView = (ListView)grid.Parent.Parent;
-            Term term = (Term)listView.BindingContext;
-
-            await Navigation.PushAsync(new CourseDetailPage(course, term));
+            await Navigation.PushAsync(new CourseDetailPage(course));
         }
 
         private async void AddCourseButton_Click(Object sender, EventArgs e)
