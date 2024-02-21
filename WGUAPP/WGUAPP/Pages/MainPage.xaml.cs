@@ -5,6 +5,8 @@ namespace WGUAPP.Pages
 {
     public partial class MainPage : ContentPage
     {
+        private bool isEvaluationDataCreated = false;
+
         public MainPage()
         {
             InitializeComponent();
@@ -13,6 +15,16 @@ namespace WGUAPP.Pages
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+
+            // Check if evaluation data creation has already been performed
+            if (!isEvaluationDataCreated)
+            {
+                // Call the asynchronous initialization method
+                await DatabaseService.CreateEvaluationData();
+
+                // Set the flag to true to indicate that data creation has been completed
+                isEvaluationDataCreated = true;
+            }
 
             TermsListView.ItemsSource = await DatabaseService.GetTerms();
         }

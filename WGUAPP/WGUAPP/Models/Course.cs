@@ -10,7 +10,7 @@ namespace WGUAPP.Models
         public string Name { get; set; } = "";
         public DateTime StartDate { get; set; } = DateTime.Now;
         public DateTime EndDate { get; set; } = DateTime.Now;
-        public string Status { get; set; } = ""; // in progress, completed, dropped, plan to take
+        public string Status { get; set; } = ""; // "Plan to take", "In progress", "Completed", "Dropped"
         public string InstructorName { get; set; } = "";
         public string InstructorPhone { get; set; } = "";
         public string InstructorEmail { get; set; } = "";

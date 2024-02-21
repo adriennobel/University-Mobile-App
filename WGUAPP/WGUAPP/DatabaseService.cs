@@ -19,12 +19,61 @@ namespace WGUAPP
             var dbPath = Path.Combine(FileSystem.AppDataDirectory, "DegreePlan.db");
 
             _db = new SQLiteAsyncConnection(dbPath);
-
             await _db.CreateTableAsync<Term>();
             await _db.CreateTableAsync<Course>();
             await _db.CreateTableAsync<Assessment>();
+        }
 
-            // Console.WriteLine("An error occured while initializing the database.");
+        public static async Task CreateEvaluationData()
+        {
+            await Init();
+
+            // Create a term
+            Term term = new()
+            {
+                Title = "Spring 2024",
+                StartDate = new DateTime(2024, 3, 1),
+                EndDate = new DateTime(2024, 6, 30)
+            };
+            await _db.InsertAsync(term);
+
+            // Create a course associated with the term
+            Course course = new()
+            {
+                TermId = term.Id,
+                Name = "Computer Science 101",
+                StartDate = new DateTime(2024, 3, 15),
+                EndDate = new DateTime(2024, 6, 15),
+                Status = "In progress", // Set the course status
+                InstructorName = "Anika Patel",
+                InstructorPhone = "555-123-4567",
+                InstructorEmail = "anika.patel@strimeuniversity.edu",
+                Notes = "This is an introductory course to computer science.",
+                HasPA = true,
+                HasOA = true,
+            };
+            await _db.InsertAsync(course);
+
+            // Create assessments for the course
+            Assessment performanceAssessment = new()
+            {
+                CourseId = course.Id,
+                Name = "CSC 101 Coding test",
+                Type = "Performance",
+                StartDate = new DateTime(2024, 5, 1),
+                EndDate = new DateTime(2024, 5, 15)
+            };
+            await _db.InsertAsync(performanceAssessment);
+
+            Assessment objectiveAssessment = new()
+            {
+                CourseId = course.Id,
+                Name = "CSC 101 Objective Assessment",
+                Type = "Objective",
+                StartDate = new DateTime(2024, 6, 1),
+                EndDate = new DateTime(2024, 6, 10)
+            };
+            await _db.InsertAsync(objectiveAssessment);
         }
 
         #region Term Methods

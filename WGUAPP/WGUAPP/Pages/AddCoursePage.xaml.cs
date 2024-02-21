@@ -6,7 +6,7 @@ namespace WGUAPP.Pages;
 public partial class AddCoursePage : ContentPage
 {
     readonly Term term = new();
-    readonly List<string> statusList = ["In progress", "Completed", "Dropped", "Plan to take"];
+    readonly List<string> statusList = ["Plan to take", "In progress", "Completed", "Dropped"];
 
 	public AddCoursePage(Term term)
 	{
@@ -14,6 +14,7 @@ public partial class AddCoursePage : ContentPage
 
         this.term = term;
         StatusPicker.ItemsSource = statusList;
+        StatusPicker.SelectedIndex = 0;
 	}
 
     private void InstructorPhoneEntry_TextChanged(object sender, TextChangedEventArgs e)
