@@ -81,10 +81,6 @@ public partial class AddCoursePage : ContentPage
                 return;
             }
 
-            // Register notifications for start and end dates
-            int startDateAlertID = NotificationService.RegisterNotification(name.Trim(), "Course started", startDate);
-            int endDateAlertID = NotificationService.RegisterNotification(name.Trim(), "Course ended", endDate);
-
             // Create a new course object
             Course course = new()
             {
@@ -96,9 +92,18 @@ public partial class AddCoursePage : ContentPage
                 InstructorName = instructorName.Trim(),
                 InstructorPhone = instructorPhone.Trim(),
                 InstructorEmail = instructorEmail.Trim().ToLowerInvariant(),
-                StartDateAlertID = startDateAlertID,
-                EndDateAlertID = endDateAlertID,
             };
+
+            // Register notifications for start and end dates if checked
+            if (NotificationsCheckbox.IsChecked)
+            {
+                int startDateAlertID = NotificationService.RegisterNotification(name.Trim(), "Course started", startDate);
+                int endDateAlertID = NotificationService.RegisterNotification(name.Trim(), "Course ended", endDate);
+
+                course.NotificationsEnabled = true;
+                course.StartDateAlertID = startDateAlertID;
+                course.EndDateAlertID = endDateAlertID;
+            }
 
             // Add the new course object to db
             await DatabaseService.AddCourse(course);

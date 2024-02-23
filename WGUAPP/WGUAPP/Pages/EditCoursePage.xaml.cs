@@ -22,6 +22,7 @@ public partial class EditCoursePage : ContentPage
         InstructorNameEntry.Text = course.InstructorName;
         InstructorPhoneEntry.Text = course.InstructorPhone;
         InstructorEmailEntry.Text = course.InstructorEmail;
+        NotificationsCheckbox.IsChecked = course.NotificationsEnabled;
     }
 
     private void InstructorPhoneEntry_TextChanged(object sender, TextChangedEventArgs e)
@@ -71,7 +72,8 @@ public partial class EditCoursePage : ContentPage
 
             // Check for any change
             if (name.Trim() == course.Name && startDate == course.StartDate && endDate == course.EndDate && status == course.Status &&
-                instructorName.Trim() == course.InstructorName && instructorPhone == course.InstructorPhone && instructorEmail.Trim() == course.InstructorEmail)
+                instructorName.Trim() == course.InstructorName && instructorPhone == course.InstructorPhone && instructorEmail.Trim() == course.InstructorEmail &&
+                NotificationsCheckbox.IsChecked == course.NotificationsEnabled)
             {
                 await DisplayAlert("Alert", "No change detected.", "OK");
                 return;
@@ -96,10 +98,6 @@ public partial class EditCoursePage : ContentPage
                 return;
             }
 
-            // Update registered notifications for start and end dates
-            NotificationService.UpdateRegisteredNotification(course.StartDateAlertID, name.Trim(), "Course started", startDate);
-            NotificationService.UpdateRegisteredNotification(course.EndDateAlertID, name.Trim(), "Course ended", endDate);
-
             // Create a new course object 
             Course newCourse = new()
             {
@@ -111,7 +109,28 @@ public partial class EditCoursePage : ContentPage
                 InstructorPhone = instructorPhone,
                 InstructorEmail = instructorEmail.Trim()
             };
-            
+
+            // Update or register notifications based on checkbox
+            if (course.NotificationsEnabled && NotificationsCheckbox.IsChecked)
+            {
+                NotificationService.UpdateRegisteredNotification(course.StartDateAlertID, name.Trim(), "Course started", startDate);
+                NotificationService.UpdateRegisteredNotification(course.EndDateAlertID, name.Trim(), "Course ended", endDate);
+            }
+            else if (course.NotificationsEnabled && !NotificationsCheckbox.IsChecked)
+            {
+                NotificationService.ClearAndCancelNotification(course.StartDateAlertID);
+                NotificationService.ClearAndCancelNotification(course.EndDateAlertID);
+            }
+            else if (!course.NotificationsEnabled && NotificationsCheckbox.IsChecked)
+            {
+                int startDateAlertID = NotificationService.RegisterNotification(name.Trim(), "Course started", startDate);
+                int endDateAlertID = NotificationService.RegisterNotification(name.Trim(), "Course ended", endDate);
+
+                newCourse.NotificationsEnabled = true;
+                newCourse.StartDateAlertID = startDateAlertID;
+                newCourse.EndDateAlertID = endDateAlertID;
+            }
+
             // call update course service
             await DatabaseService.UpdateCourse(course.Id, newCourse);
 

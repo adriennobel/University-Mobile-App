@@ -27,6 +27,7 @@ public partial class CourseAssessmentPage : ContentPage
         NameEntry.Text = assessment.Name;
         StartDatePicker.Date = assessment.StartDate;
         EndDatePicker.Date = assessment.EndDate;
+        NotificationsCheckbox.IsChecked = assessment.NotificationsEnabled;
     }
 
     private async void SaveButton_Click(object sender, EventArgs e)
@@ -46,18 +47,16 @@ public partial class CourseAssessmentPage : ContentPage
             }
 
             // Check for any change
-            if (name.Trim() == assessment.Name && startDate == assessment.StartDate && endDate == assessment.EndDate)
+            if (name.Trim() == assessment.Name && startDate == assessment.StartDate && endDate == assessment.EndDate && 
+                NotificationsCheckbox.IsChecked == assessment.NotificationsEnabled)
             {
                 await DisplayAlert("Alert", "No change detected.", "OK");
                 return;
             }
 
-            // Register or update notifications for start and end dates
+            // Check if we are creating or updating assessment 
             if (assessment.Name == "")
             {
-                int startDateAlertID = NotificationService.RegisterNotification(name, $"{assessmentType} Assessment started", startDate);
-                int endDateAlertID = NotificationService.RegisterNotification(name, $"{assessmentType} Assessment ended", endDate);
-
                 // Create assessment object
                 Assessment newAssessment = new()
                 {
@@ -66,18 +65,24 @@ public partial class CourseAssessmentPage : ContentPage
                     Type = assessmentType,
                     StartDate = startDate,
                     EndDate = endDate,
-                    StartDateAlertID = startDateAlertID,
-                    EndDateAlertID = endDateAlertID,
                 };
+
+                // creating assessment: register notifications
+                if (NotificationsCheckbox.IsChecked)
+                {
+                    int startDateAlertID = NotificationService.RegisterNotification(name, $"{assessmentType} Assessment started", startDate);
+                    int endDateAlertID = NotificationService.RegisterNotification(name, $"{assessmentType} Assessment ended", endDate);
+
+                    newAssessment.NotificationsEnabled = true;
+                    newAssessment.StartDateAlertID = startDateAlertID;
+                    newAssessment.EndDateAlertID = endDateAlertID;
+                }
 
                 await DatabaseService.AddAssessment(newAssessment);
                 await DatabaseService.UpdateCourseHasAssessment(course.Id, assessmentType == "Performance" || course.HasPA , assessmentType == "Objective" || course.HasOA);
             }
             else
             {
-                NotificationService.UpdateRegisteredNotification(assessment.StartDateAlertID, name, $"{assessmentType} Assessment started", startDate);
-                NotificationService.UpdateRegisteredNotification(assessment.StartDateAlertID, name, $"{assessmentType} Assessment ended", endDate);
-
                 // Create assessment object
                 Assessment newAssessment = new()
                 {
@@ -85,6 +90,27 @@ public partial class CourseAssessmentPage : ContentPage
                     StartDate = startDate,
                     EndDate = endDate,
                 };
+
+                // Update or register notifications based on checkbox
+                if (assessment.NotificationsEnabled && NotificationsCheckbox.IsChecked)
+                {
+                    NotificationService.UpdateRegisteredNotification(assessment.StartDateAlertID, name, $"{assessmentType} Assessment started", startDate);
+                    NotificationService.UpdateRegisteredNotification(assessment.EndDateAlertID, name, $"{assessmentType} Assessment ended", endDate);
+                }
+                else if (assessment.NotificationsEnabled && !NotificationsCheckbox.IsChecked)
+                {
+                    NotificationService.ClearAndCancelNotification(assessment.StartDateAlertID);
+                    NotificationService.ClearAndCancelNotification(assessment.EndDateAlertID);
+                }
+                else if (!assessment.NotificationsEnabled && NotificationsCheckbox.IsChecked)
+                {
+                    int startDateAlertID = NotificationService.RegisterNotification(name, $"{assessmentType} Assessment started", startDate);
+                    int endDateAlertID = NotificationService.RegisterNotification(name, $"{assessmentType} Assessment ended", endDate);
+
+                    newAssessment.NotificationsEnabled = true;
+                    newAssessment.StartDateAlertID = startDateAlertID;
+                    newAssessment.EndDateAlertID = endDateAlertID;
+                }
 
                 // Update assessment instance with new values
                 await DatabaseService.UpdateAssessment(assessment.Id, newAssessment);

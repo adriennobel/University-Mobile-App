@@ -1,0 +1,77 @@
+commit 47de65bcc8afe6070cc0101f202d33d8a4a55672
+Author: adriennobel <adrien.juin@gmail.com>
+Date:   Wed Feb 21 15:20:07 2024 -0500
+
+    Part D
+
+commit 4cd21188a3d99c473f92d6538aa3cb69882a82d9
+Author: adriennobel <adrien.juin@gmail.com>
+Date:   Wed Feb 21 14:52:02 2024 -0500
+
+    B3: added assessment detail wireframe
+
+commit 05a2da3b8e62d8e4fcd0164f58cd68f781550ae8
+Author: adriennobel <adrien.juin@gmail.com>
+Date:   Wed Feb 21 14:50:54 2024 -0500
+
+    B2: added wireframe for 6 courses view and course detail edit page
+
+commit 7a693a0caca3f31be9308df39d92f449c93b617f
+Author: adriennobel <adrien.juin@gmail.com>
+Date:   Wed Feb 21 14:49:20 2024 -0500
+
+    B1 Added wireframe of MainPage and Term details edit
+
+commit 689f199a63777103fe13f0f1921bec152dc9f7bc
+Author: adriennobel <adrien.juin@gmail.com>
+Date:   Wed Feb 21 10:41:41 2024 -0500
+
+    C6: Write code to create a set of data for evaluation purposes
+
+commit b1586c42309295d3eaf7a062843ae5177f86edb2
+Author: adriennobel <adrien.juin@gmail.com>
+Date:   Wed Feb 21 09:33:21 2024 -0500
+
+    Refactored code to implement SQLite-net
+
+commit c76c8d33ea8272215bb4b30c7d95ef2b4043c369
+Author: adriennobel <adrien.juin@gmail.com>
+Date:   Fri Feb 16 23:24:21 2024 -0500
+
+    C5: Provide an interface for the user to perform tasks on each assessment
+
+commit 5527f7013dc74dd23efcff65edb630b5c6ce244e
+Author: adriennobel <adrien.juin@gmail.com>
+Date:   Thu Feb 15 22:43:48 2024 -0500
+
+    C4: Create features that allow the user to do more tasks for each course:
+
+commit d04a31549ae5414e15a0106cc346dccc7c5071ae
+Author: adriennobel <adrien.juin@gmail.com>
+Date:   Mon Feb 12 23:19:16 2024 -0500
+
+    C3: Provide an interface that allows the user to access and edit details for each course
+
+commit ce7a88415ea943c6594c83f16515c6abd370cd2e
+Author: adriennobel <adrien.juin@gmail.com>
+Date:   Fri Feb 9 21:22:32 2024 -0500
+
+    C2: Provide an interface that allows the user to access all the following features for each academic term
+
+commit 73203c60abae0a2b8bbbb5ea5ef2d2abfb07bc67
+Author: adriennobel <adrien.juin@gmail.com>
+Date:   Tue Feb 6 15:29:07 2024 -0500
+
+    C1: MainPage UI created that deplays some Terms. AddTermPage created and functionality to add terms developed.
+
+commit d1a9c803f471f890aad8fc54b5b3f685b7c9633c
+Author: whitneybantar <misschal200@gmail.com>
+Date:   Sun Jan 28 20:46:23 2024 -0500
+
+    First commit: created MAUI template app project
+
+commit 447c59d9217604d4921bb30b637677ea22d06cee
+Author: Matt Alexander <matt@twocom.com>
+Date:   Mon Jul 31 18:25:32 2023 +0000
+
+    Initial commit

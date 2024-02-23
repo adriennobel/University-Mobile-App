@@ -160,6 +160,7 @@ namespace WGUAPP
                 currentCourse.InstructorName = updatedCourse.InstructorName;
                 currentCourse.InstructorPhone = updatedCourse.InstructorPhone;
                 currentCourse.InstructorEmail = updatedCourse.InstructorEmail;
+                currentCourse.NotificationsEnabled = updatedCourse.NotificationsEnabled;
 
                 await _db.UpdateAsync(currentCourse);
             }
@@ -221,6 +222,8 @@ namespace WGUAPP
                 currentAssessment.Name = updatedAssessment.Name;
                 currentAssessment.StartDate = updatedAssessment.StartDate;
                 currentAssessment.EndDate = updatedAssessment.EndDate;
+                currentAssessment.NotificationsEnabled = updatedAssessment.NotificationsEnabled;
+
                 await _db.UpdateAsync(currentAssessment);
             }
         }

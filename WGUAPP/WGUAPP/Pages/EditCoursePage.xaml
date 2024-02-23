@@ -42,7 +42,12 @@
                 </Grid>
             </Grid>
 
-            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="16" Grid.Row="7">
+            <Grid ColumnDefinitions="auto, auto" Grid.Row="7">
+                <Label Text="Receive Notifications:" VerticalOptions="Center" FontSize="16" />
+                <CheckBox x:Name="NotificationsCheckbox" IsChecked="True" Grid.Column="1" />
+            </Grid>
+
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="16" Grid.Row="8">
                 <Button Text="Save" Clicked="SaveButton_Click" FontSize="16" />
                 <Button Text="Cancel" Grid.Column="1" Clicked="CancelButton_Click" FontSize="16" />
             </Grid>

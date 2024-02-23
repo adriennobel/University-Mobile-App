@@ -13,6 +13,7 @@ namespace WGUAPP.Models
         public DateTime StartDate { get; set; } = DateTime.Now;
         public DateTime EndDate { get; set; } = DateTime.Now;
 
+        public bool NotificationsEnabled { get; set; } = false;
         public int StartDateAlertID { get; set; } = -1;
         public int EndDateAlertID { get; set; } = -1;
     }

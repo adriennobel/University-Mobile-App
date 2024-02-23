@@ -19,6 +19,7 @@ namespace WGUAPP.Models
         public bool HasPA { get; set; } = false;
         public bool HasOA { get; set; } = false;
 
+        public bool NotificationsEnabled { get; set; } = false;
         public int StartDateAlertID { get; set; } = -1;
         public int EndDateAlertID { get; set; } = -1;
     }

@@ -5,7 +5,7 @@
              Title=" Assessment">
 
     <ScrollView>
-        <Grid RowDefinitions="auto, auto, auto, auto, auto" RowSpacing="16" Padding="16">
+        <Grid RowDefinitions="auto, auto, auto, auto, auto, auto" RowSpacing="16" Padding="16">
             <Entry x:Name="NameEntry" Placeholder="Term name" Grid.Row="1" FontSize="16" />
             <Grid ColumnDefinitions="80, auto" ColumnSpacing="8" Grid.Row="2">
                 <Label Text="Start date:" FontSize="16" VerticalOptions="Center" />
@@ -15,7 +15,11 @@
                 <Label Text="End date:" FontSize="16" VerticalOptions="Center" />
                 <DatePicker x:Name="EndDatePicker" Grid.Column="1" FontSize="16" />
             </Grid>
-            <Grid ColumnDefinitions="auto, auto, *" ColumnSpacing="16" Grid.Row="4">
+            <Grid ColumnDefinitions="auto, auto" Grid.Row="4">
+                <Label Text="Receive Notifications:" VerticalOptions="Center" FontSize="16" />
+                <CheckBox x:Name="NotificationsCheckbox" IsChecked="True" Grid.Column="1"  />
+            </Grid>
+            <Grid ColumnDefinitions="auto, auto, *" ColumnSpacing="16" Grid.Row="5">
                 <Button Text="Save" Clicked="SaveButton_Click" FontSize="16" />
                 <Button Text="Cancel" Grid.Column="1" Clicked="CancelButton_Click" FontSize="16" />
                 <Button x:Name="DeleteButton" Clicked="DeleteButton_Click" Text="Delete" HorizontalOptions="End" Grid.Column="2" 
